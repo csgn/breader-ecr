@@ -5,10 +5,6 @@ from io import BytesIO
 
 from barcode import BarcodeDetector
 
-import logging
-
-logging.setLevel(logging.DEBUG)
-
 
 def handler(event, context):
     print("REQUEST IS RECEIVED")
@@ -17,7 +13,7 @@ def handler(event, context):
     c_data["boundary"] = bytes(c_data["boundary"], "utf-8")
     body_file = BytesIO(bytes(event["body"], "utf-8"))
     form_data = parse_multipart(body_file, c_data)
-    
+
     file = form_data['file'][0]
 
     res = None
@@ -30,4 +26,3 @@ def handler(event, context):
         'statusCode': 200,
         'body': res
     }
-
